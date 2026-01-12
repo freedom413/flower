@@ -1,0 +1,3 @@
+[submodule "components/bh1750fvi"]
+	path = components/bh1750fvi
+	url = https://gitee.com/libdriver/bh1750fvi.git
