@@ -21,8 +21,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE. 
  *
- * @file      driver_bh1750fvi_interface_template.c
- * @brief     driver bh1750fvi interface template source file
+ * @file      driver_bh1750fvi_basic.h
+ * @brief     driver bh1750fvi basic header file
  * @version   1.0.0
  * @author    Shifeng Li
  * @date      2022-11-30
@@ -34,88 +34,63 @@
  * </table>
  */
 
+#ifndef DRIVER_BH1750FVI_BASIC_H
+#define DRIVER_BH1750FVI_BASIC_H
+
 #include "driver_bh1750fvi_interface.h"
-#include "i2c.h"
-/**
- * @brief  interface iic bus init
- * @return status code
- *         - 0 success
- *         - 1 iic init failed
- * @note   none
- */
-uint8_t bh1750fvi_interface_iic_init(void)
-{
-    return 0;
-}
+
+#ifdef __cplusplus
+extern "C"{
+#endif
 
 /**
- * @brief  interface iic bus deinit
- * @return status code
- *         - 0 success
- *         - 1 iic deinit failed
- * @note   none
+ * @defgroup bh1750fvi_example_driver bh1750fvi example driver function
+ * @brief    bh1750fvi example driver modules
+ * @ingroup  bh1750fvi_driver
+ * @{
  */
-uint8_t bh1750fvi_interface_iic_deinit(void)
-{
-    return 0;
-}
 
 /**
- * @brief     interface iic bus write command
- * @param[in] addr iic device write address
- * @param[in] *buf pointer to a data buffer
- * @param[in] len length of data buffer
+ * @brief bh1750fvi basic example default definition
+ */
+#define BH1750FVI_BASIC_DEFAULT_MODE                    BH1750FVI_MODE_HIGH_RESOLUTION_MODE        /**< high resolution mode */
+#define BH1750FVI_BASIC_DEFAULT_MEASUREMENT_TIME        69                                         /**< measurement time 69 */
+
+/**
+ * @brief     basic example init
+ * @param[in] addr_pin iic device address
  * @return    status code
  *            - 0 success
- *            - 1 write failed
+ *            - 1 init failed
  * @note      none
  */
-uint8_t bh1750fvi_interface_iic_write_cmd(uint8_t addr, uint8_t *buf, uint16_t len)
-{   
-    HAL_StatusTypeDef ret;
-    ret = HAL_I2C_Master_Transmit(&hi2c1, addr, buf, len, 0xFFFF);
-    if(ret != HAL_OK) {
-        return 1;
-    }
-    return 0;
-}
+uint8_t bh1750fvi_basic_init(bh1750fvi_address_t addr_pin);
 
 /**
- * @brief      interface iic bus read command
- * @param[in]  addr iic device write address
- * @param[out] *buf pointer to a data buffer
- * @param[in]  len length of data buffer
+ * @brief      basic example read
+ * @param[out] *lux pointer to a converted lux buffer
  * @return     status code
  *             - 0 success
  *             - 1 read failed
  * @note       none
  */
-uint8_t bh1750fvi_interface_iic_read_cmd(uint8_t addr, uint8_t *buf, uint16_t len)
-{
-    HAL_StatusTypeDef ret;
-    ret = HAL_I2C_Master_Receive(&hi2c1, addr, buf, len, 0xFFFF);
-    if(ret != HAL_OK) {
-        return 1;
-    }
-    return 0;
-}
+uint8_t bh1750fvi_basic_read(float *lux);
 
 /**
- * @brief     interface delay ms
- * @param[in] ms time
- * @note      none
+ * @brief  basic example deinit
+ * @return status code
+ *         - 0 success
+ *         - 1 deinit failed
+ * @note   none
  */
-void bh1750fvi_interface_delay_ms(uint32_t ms)
-{
-    HAL_Delay(ms);
-}
+uint8_t bh1750fvi_basic_deinit(void);
 
 /**
- * @brief     interface print format data
- * @param[in] fmt format data
- * @note      none
+ * @}
  */
-void bh1750fvi_interface_debug_print(const char *const fmt, ...)
-{
-    
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif

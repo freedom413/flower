@@ -46,18 +46,23 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
     src/flower.c
-    src/ringbuffer.c
-    src/match.c
     src/driver_bh1750fvi_interface_template.c
+    src/driver_bh1750fvi_basic.c
     components/bh1750fvi/src/driver_bh1750fvi.c
+    components/Ring-Buffer/ringbuffer.c
+    components/cJSON/cJSON.c
+    components/cJSON/cJSON_Utils.c
+    components/printf/printf.c
 )
 
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
     inc
-    src
     components/bh1750fvi/src
+    components/Ring-Buffer
+    components/cJSON
+    components/printf
 )
 
 # Add project symbols (macros)

@@ -93,7 +93,8 @@
                 "__yield()=",
                 "__vfp_status(x,y)=0"
             ],
-            "intelliSenseMode": "${default}"
+            "intelliSenseMode": "${default}",
+            "compileCommands": "${workspaceFolder}/build/Debug/compile_commands.json"
         },
         {
             "name": "stm32f407_stm32f407",
