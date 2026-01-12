@@ -66,6 +66,7 @@ int init(void)
     HAL_TIM_Base_Init(&htim1);
     HAL_TIM_PWM_Init(&htim1);
     HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
+
     // adc init
     HAL_ADC_Init(&hadc1);
     HAL_ADCEx_Calibration_Start(&hadc1);
