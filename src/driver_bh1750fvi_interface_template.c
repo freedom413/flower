@@ -36,6 +36,8 @@
 
 #include "driver_bh1750fvi_interface.h"
 #include "i2c.h"
+#include "printf.h"
+
 /**
  * @brief  interface iic bus init
  * @return status code
@@ -116,6 +118,12 @@ void bh1750fvi_interface_delay_ms(uint32_t ms)
  * @note      none
  */
 void bh1750fvi_interface_debug_print(const char *const fmt, ...)
-{
-    
+{   
+    if (fmt == NULL) {
+        return;
+    }
+    va_list args;
+    va_start(args, fmt);
+    vprintf(fmt, args);
+    va_end(args);
 }

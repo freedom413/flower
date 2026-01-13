@@ -9,6 +9,8 @@
 #include "printf.h"
 #include "usart.h"
 
+#define dbg_printf printf
+
 // 水泵开关
 #define PUMP_ON() do{ HAL_GPIO_WritePin(PUMP_GPIO_Port, PUMP_Pin, GPIO_PIN_SET); } while(0)
 #define PUMP_OFF() do{ HAL_GPIO_WritePin(PUMP_GPIO_Port, PUMP_Pin, GPIO_PIN_RESET); } while(0)
@@ -29,7 +31,7 @@ void _putchar(char character)
     HAL_StatusTypeDef ret;
     ret =  HAL_UART_Transmit(&huart1, (uint8_t*)&character, 1, 0xFFFF);
     if (ret != HAL_OK) {
-        printf("UART Transmit Error: %d\n", ret);
+        // 发送失败
     }
 }
 
@@ -72,7 +74,7 @@ int init(void)
     HAL_ADC_Init(&hadc1);
     HAL_ADCEx_Calibration_Start(&hadc1);
     HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_data, ADC_CHN);
-
+    dbg_printf("init done\n");
     return 0;
 }
 

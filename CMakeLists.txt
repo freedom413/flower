@@ -53,6 +53,8 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     components/cJSON/cJSON.c
     components/cJSON/cJSON_Utils.c
     components/printf/printf.c
+    mqtt_data/stm32_data_pack.c
+    mqtt_data/stm32_data_pack_example.c
 )
 
 # Add include paths
@@ -63,6 +65,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     components/Ring-Buffer
     components/cJSON
     components/printf
+    mqtt_data
 )
 
 # Add project symbols (macros)
