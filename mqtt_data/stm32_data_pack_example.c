@@ -7,7 +7,7 @@
 #include "stm32f1xx_hal.h"  // 或根据你的STM32型号修改
 
 // ==================== 全局串口句柄 ====================
-extern UART_HandleTypeDef huart1;  // 假设使用UART1
+extern UART_HandleTypeDef huart2;  // 假设使用UART1
 
 // ==================== 用户实现的串口发送函数 ====================
 /**
@@ -15,7 +15,7 @@ extern UART_HandleTypeDef huart1;  // 假设使用UART1
  * 这是 stm32_data_pack.h 中声明的必须实现的函数
  */
 void UART_SendByte(uint8_t byte) {
-  HAL_UART_Transmit(&huart1, &byte, 1, 100);
+  HAL_UART_Transmit(&huart2, &byte, 1, 100);
 }
 
 // ==================== 可选：发送整个数据包 ====================
@@ -23,7 +23,7 @@ void UART_SendByte(uint8_t byte) {
  * 发送缓冲区数据（如果要一次性发送整个帧）
  */
 void UART_SendBuffer(uint8_t* buffer, uint8_t len) {
-  HAL_UART_Transmit(&huart1, buffer, len, 100);
+  HAL_UART_Transmit(&huart2, buffer, len, 100);
 }
 
 // ==================== 使用示例 ====================
@@ -87,7 +87,7 @@ void sendSensorDataWithCheck(uint16_t soilMoisture, uint16_t lightIntensity) {
   if (frameLen == FRAME_MIN_LEN) {
     // 打包成功，发送数据
     for (uint8_t i = 0; i < frameLen; i++) {
-      if (HAL_UART_Transmit(&huart1, &buffer[i], 1, 100) != HAL_OK) {
+      if (HAL_UART_Transmit(&huart2, &buffer[i], 1, 100) != HAL_OK) {
         // 发送失败处理
         printf("UART send failed\r\n");
         return;

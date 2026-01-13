@@ -115,3 +115,5 @@
 2182	3391	7899911703946339	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c.obj	d0861cb49cc49fcc
 2392	3455	7899911706048192	cmake/stm32cubemx/CMakeFiles/STM32_Drivers.dir/__/__/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c.obj	19c2d9b1d5bf02d9
 3455	3743	7899911716675517	flower.elf	470ae6d6492b9fef
+7	268	7899920351886454	CMakeFiles/flower.dir/mqtt_data/stm32_data_pack_example.c.obj	76b0fbc7712a96f9
+269	613	7899920354512281	flower.elf	470ae6d6492b9fef

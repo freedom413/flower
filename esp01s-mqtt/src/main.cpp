@@ -8,11 +8,11 @@
 #include <stdint.h>
 
 // ==================== 配置参数 ====================
-#define SSID "your_wifi_ssid"           // WiFi SSID
-#define PASSWORD "your_wifi_password"   // WiFi 密码
+#define SSID "xihua_wifi"           // WiFi SSID
+#define PASSWORD "xihua_password"   // WiFi 密码
 #define MQTT_SERVER "broker.emqx.io"    // EMQX 公共服务器
 #define MQTT_PORT 1883
-#define MQTT_TOPIC "esp8266/sensor"     // MQTT 发布主题
+#define MQTT_TOPIC "xihua/mqtt/sensor"     // MQTT 发布主题
 #define UART_BAUD 9600                  // 串口波特率
 
 // ==================== RingBuffer 配置 ====================
