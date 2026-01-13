@@ -5,7 +5,22 @@
 #include <ArduinoJson.h>
 #include <RingBuf.h>
 #include <Wire.h>
+
+// ==================== 调试开关 ====================
+// 设置为 1 打开调试打印，设置为 0 关闭
+#ifndef DEBUG_PRINT
+#define DEBUG_PRINT 1
+#endif
+
+#if DEBUG_PRINT
+#define DPRINT(...) Serial.print(__VA_ARGS__)
+#define DPRINTLN(...) Serial.println(__VA_ARGS__)
+#else
+#define DPRINT(...)
+#define DPRINTLN(...)
+#endif
 #include <stdint.h>
+
 
 // ==================== 配置参数 ====================
 #define SSID "xihua_wifi"           // WiFi SSID
@@ -151,12 +166,14 @@ void handleSerialData() {
     ringBuf.push(byte);
     
     // 调试信息
+  #if DEBUG_PRINT
     Serial.print("RX: 0x");
     if (byte < 0x10) Serial.print("0");
     Serial.print(byte, HEX);
     Serial.print(" (Buffer: ");
     Serial.print(ringBuf.size());
     Serial.println(")");
+  #endif
   }
   
   // 解析完整的数据帧
@@ -170,7 +187,7 @@ void handleSerialData() {
     if (firstByte != FRAME_HEADER) {
       uint8_t dummy;
       ringBuf.pop(dummy);
-      Serial.println("Dropped invalid byte");
+      DPRINTLN("Dropped invalid byte");
       continue;
     }
     
@@ -188,7 +205,7 @@ void handleSerialData() {
     if (frameLen > FRAME_MAX_LEN || lenByte == 0) {
       uint8_t dummy;
       ringBuf.pop(dummy);
-      Serial.println("Invalid frame length");
+      DPRINTLN("Invalid frame length");
       continue;
     }
     
@@ -207,7 +224,7 @@ void handleSerialData() {
     if (frame[frameLen - 1] != FRAME_TAIL) {
       uint8_t dummy;
       ringBuf.pop(dummy);
-      Serial.println("Invalid frame tail");
+      DPRINTLN("Invalid frame tail");
       continue;
     }
     
@@ -216,14 +233,14 @@ void handleSerialData() {
     if (checksum != frame[frameLen - 2]) {
       uint8_t dummy;
       ringBuf.pop(dummy);
-      Serial.println("Checksum error");
+      DPRINTLN("Checksum error");
       continue;
     }
     
     // 解析数据
     SensorData data;
     if (parseDataFrame(frame, frameLen, &data)) {
-      Serial.println("Frame parsed successfully!");
+      DPRINTLN("Frame parsed successfully!");
       publishToMqtt(&data);
     }
     
@@ -252,11 +269,11 @@ bool parseDataFrame(uint8_t* buffer, uint8_t len, SensorData* data) {
   data->soilMoisture = (buffer[2] << 8) | buffer[3];
   data->lightIntensity = (buffer[4] << 8) | buffer[5];
   
-  Serial.print("Parsed Data - Soil Moisture: ");
-  Serial.print(data->soilMoisture);
-  Serial.print("%, Light: ");
-  Serial.print(data->lightIntensity);
-  Serial.println(" lux");
+  DPRINT("Parsed Data - Soil Moisture: ");
+  DPRINT(data->soilMoisture);
+  DPRINT("%, Light: ");
+  DPRINT(data->lightIntensity);
+  DPRINTLN(" lux");
   
   return true;
 }
